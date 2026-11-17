@@ -7,6 +7,16 @@ cannot take because of its [AI usage policy](./AI-USAGE-POLICY.md). Current addi
 
 Everything else is upstream. Don't report issues from this fork's builds upstream.
 
+## Install
+
+```bash
+brew install twaslowski/tap/tofu-ls
+```
+
+Or grab an archive from the [releases](https://github.com/twaslowski/tofu-ls/releases). Each release updates the cask in
+[twaslowski/homebrew-tap](https://github.com/twaslowski/homebrew-tap) using the `HOMEBREW_TAP_DEPLOY_KEY` secret,
+a write deploy key on the tap.
+
 ## Versions
 
 Releases track upstream's semver tags and add the commit as build metadata: `v<upstream version>+<short commit>`,
