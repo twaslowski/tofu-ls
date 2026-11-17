@@ -31,6 +31,27 @@ archives:
       {{- else }}{{ .Arch }}{{ end }}
       {{- if .Arm }}v{{ .Arm }}{{ end }}
 
+homebrew_casks:
+  - name: tofu-ls
+    repository:
+      owner: twaslowski
+      name: homebrew-tap
+      branch: main
+      # deploy key on homebrew-tap; GITHUB_TOKEN can't push to other repos
+      git:
+        url: git@github.com:twaslowski/homebrew-tap.git
+        private_key: "{{ .Env.HOMEBREW_TAP_DEPLOY_KEY }}"
+    homepage: https://github.com/twaslowski/tofu-ls
+    description: OpenTofu language server (unofficial fork with rename support)
+    binaries: [tofu-ls]
+    hooks:
+      post:
+        # unsigned binary; Gatekeeper blocks it otherwise
+        install_steps: |
+          on_macos do
+            run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{ .StagedPath }}/tofu-ls"]
+          end
+
 changelog:
   sort: asc
   filters:
@@ -39,6 +60,10 @@ changelog:
       - "^test:"
 
 release:
+  # otherwise inferred as opentofu/tofu-ls
+  github:
+    owner: twaslowski
+    name: tofu-ls
   footer: >-
 
     ---
